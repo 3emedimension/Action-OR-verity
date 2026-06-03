@@ -24,7 +24,7 @@ APP_PASSWORD = "fete2024"   # ← Changer ici
 - 🔐 Connexion protégée par mot de passe
 - 👥 Joueurs illimités
 - 🎯 Action ou Vérité
-- 🌸 Mode Soft / 🔥 Mode Hot
+- 🌸 Mode Soft / 🔥 Mode Hot / 💀 Mode Extrême
 - ⚙️ Panel admin pour gérer les défis
 - 💾 Stockage SQLite local (aucune dépendance externe)
 - 📱 Responsive mobile + desktop
