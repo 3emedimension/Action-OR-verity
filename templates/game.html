@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Action ou Vérité</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body class="game-page">
+  <div class="noise"></div>
+
+  <nav class="topnav">
+    <span class="nav-logo">🎲 A|V</span>
+    <div class="nav-links">
+      <a href="/admin" class="nav-link">⚙️ Admin</a>
+      <a href="/logout" class="nav-link">Quitter</a>
+    </div>
+  </nav>
+
+  <!-- ══════ SCREEN 1 : JOUEURS ══════ -->
+  <div id="screen-setup" class="screen active">
+    <div class="setup-container">
+      <div class="setup-header">
+        <div class="logo-icon-sm">🎲</div>
+        <h2 class="setup-title">Préparer la partie</h2>
+        <p class="setup-sub">Ajoute les joueurs</p>
+      </div>
+
+      <div class="players-list" id="players-list"></div>
+
+      <div class="add-player-row">
+        <input type="text" id="player-input" class="player-input" placeholder="Prénom du joueur…" maxlength="24" />
+        <button class="btn btn-add" id="add-player-btn" title="Ajouter">＋</button>
+      </div>
+
+      <div id="setup-error" class="error-msg hidden"></div>
+
+      <button class="btn btn-start btn-full" id="start-btn">
+        Commencer la partie 🎉
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════ SCREEN 2 : CHOIX DU MODE ══════ -->
+  <div id="screen-mode" class="screen">
+    <div class="step-content center-content">
+      <p class="step-label">Choisissez votre mode de jeu</p>
+      <h2 class="setup-title" style="margin-bottom:8px">Quel soir ce sera ?</h2>
+      <p class="setup-sub" style="margin-bottom:40px">Ce choix s'applique à toute la partie</p>
+
+      <div class="mode-row mode-row-3">
+        <button class="mode-btn mode-soft" onclick="chooseMode('soft')">
+          <div class="mode-icon">🌸</div>
+          <div class="mode-name">Soft</div>
+          <div class="mode-desc">Fun entre potes</div>
+        </button>
+        <button class="mode-btn mode-hot" onclick="chooseMode('hot')">
+          <div class="mode-icon">🔥</div>
+          <div class="mode-name">Hot</div>
+          <div class="mode-desc">Ose si tu peux</div>
+        </button>
+        <button class="mode-btn mode-extreme" onclick="chooseMode('extreme')">
+          <div class="mode-icon">💀</div>
+          <div class="mode-name">Extrême</div>
+          <div class="mode-desc">Sans limites</div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════ SCREEN 3 : JEU ══════ -->
+  <div id="screen-play" class="screen">
+
+    <div class="mode-badge-fixed" id="mode-badge-fixed"></div>
+
+    <!-- Step A: joueur + choix action/vérité (masqué en mode extreme) -->
+    <div id="step-player" class="play-step active-step">
+      <div class="step-content center-content">
+        <p class="step-label">C'est au tour de…</p>
+        <div class="player-reveal-wrap">
+          <div class="player-avatar" id="avatar">🎯</div>
+          <h2 class="player-name" id="current-player">—</h2>
+        </div>
+
+        <!-- Choix action/vérité (masqué en mode extreme) -->
+        <div id="choice-row" class="choice-row">
+          <button class="choice-btn choice-action" onclick="pickType('action')">
+            <span class="choice-icon">⚡</span>
+            <span class="choice-label">Action</span>
+          </button>
+          <button class="choice-btn choice-verite" onclick="pickType('verite')">
+            <span class="choice-icon">💬</span>
+            <span class="choice-label">Vérité</span>
+          </button>
+        </div>
+
+        <!-- Bouton direct en mode extreme -->
+        <div id="extreme-btn-wrap" class="hidden">
+          <button class="btn btn-extreme btn-full" onclick="pickType('action')">
+            💀 Recevoir le défi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step B: défi révélé -->
+    <div id="step-challenge" class="play-step">
+      <div class="step-content center-content">
+        <div class="challenge-badge" id="challenge-badge">Action</div>
+        <div class="challenge-player" id="challenge-player"></div>
+        <div class="challenge-card" id="challenge-card">
+          <p class="challenge-text" id="challenge-text">…</p>
+        </div>
+        <div class="challenge-actions">
+          <button class="btn btn-ghost" onclick="reroll()">🔀 Autre défi</button>
+          <button class="btn btn-primary" onclick="nextTurn()">Tour suivant →</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='js/game.js') }}"></script>
+</body>
+</html>
